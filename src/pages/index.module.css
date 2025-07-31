@@ -1,0 +1,116 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroContainer {
+  min-height: 100vh;
+  background-image: url('/img/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.heroContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 2rem;
+  color: white;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white !important;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: white !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
+.heroDescription {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.heroButton {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 3;
+}
+
+.heroButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+
+@media screen and (max-width: 996px) {
+  .heroTitle {
+    font-size: 3rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.3rem;
+  }
+  
+  .heroDescription {
+    font-size: 1rem;
+  }
+  
+  .heroButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .heroButton {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .footerLinks {
+    gap: 1rem;
+  }
+}
