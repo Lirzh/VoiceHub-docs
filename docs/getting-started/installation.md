@@ -46,7 +46,6 @@
    Usage：按需调整
    Network：3000 ，开 Public Access
    Environment Variables：			    		
-   
    	DATABASE_URL=postgresql://user:password@postgres:5432/voicehub
    	JWT_SECRET=your-jwt-secret-here
    	# 按实际情况填写
