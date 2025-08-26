@@ -14,7 +14,13 @@
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/laoshuikaixue/VoiceHub)
 
+### Claw 部署
+
+[![Claw](https://ap-southeast-1.run.claw.cloud/logo.svg)](https://ap-southeast-1.run.claw.cloud/)
+
 ### 部署步骤
+
+##### Vercel 或 Netlify
 
 1. **点击部署按钮**：选择上方的 Vercel 或 Netlify 部署按钮
 2. **连接 GitHub**：授权平台访问您的 GitHub 账户
@@ -23,6 +29,30 @@
    - `JWT_SECRET`：JWT 令牌签名密钥（至少32个字符的随机字符串）
 4. **等待部署**：平台会自动构建和部署应用
 5. **访问应用**：部署完成后，您将获得一个可访问的 URL
+
+##### Claw
+
+1. **点击部署按钮**：选择上方的 Claw 部署按钮
+
+2. **打开应用程序启动板**：打开  App Lauchpad （应用程序启动板）
+
+3. **创建应用**：选 Create App （创建应用）
+
+4. **相关配置**：
+
+   ```
+   Application Name：VoiceHub 或 其它
+   Image Name: ghcr.io/laoshuikaixue/voicehub:main
+   Usage：按需调整
+   Network：3000 ，开 Public Access
+   Environment Variables：			    		DATABASE_URL=postgresql://user:password@postgres:5432/voicehub
+   JWT_SECRET=your-jwt-secret-here
+   # 按实际情况填写
+   ```
+
+5. **等待部署**：平台会自动构建和部署应用
+
+6. **访问应用**：部署完成后，您将获得一个可访问的 URL
 
 ### 数据库配置
 
@@ -53,6 +83,117 @@
 :::tip 提示
 一键部署是最快的体验方式，适合快速测试和小规模使用。如需更多自定义配置，请参考下方的本地安装指南。
 :::
+
+---
+
+### ⚓ Docker 部署
+
+本地构建
+
+```
+git clone https://github.com/laoshuikaixue/VoiceHub.git
+cd VoiceHub
+docker build -t voicehub .
+docker run voicehub
+```
+
+或使用 Github 的镜像源
+
+```
+docker run \
+  -p 3000:3000 \
+  -e JWT_SECRET=your-very-secure-jwt-secret-key \
+  -e DATABASE_URL="postgresql://username:password@host:port/database?sslmode=require" \
+  ghcr.io/laoshuikaixue/voicehub:main
+```
+
+或使用 南京大学 的镜像
+
+```
+docker run \
+  -p 3000:3000 \
+  -e JWT_SECRET=your-very-secure-jwt-secret-key \
+  -e DATABASE_URL="postgresql://username:password@host:port/database?sslmode=require" \
+  ghcr.nju.edc.cn/laoshuikaixue/voicehub:main
+```
+
+### 🔱 Docker-compose 部署
+
+本地构建
+
+```
+git clone https://github.com/laoshuikaixue/VoiceHub.git
+cd VoiceHub
+docker-compose up
+```
+
+或使用 Github 的镜像源
+
+```
+services:
+  voicehub:
+    image: ghcr.io/laoshuikaixue/voicehub:main
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/voicehub
+      - JWT_SECRET=your-jwt-secret-here
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=voicehub
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+```
+
+或使用 南京大学 的镜像
+
+```
+services:
+  voicehub:
+    image: ghcr.nju.edc.cn/laoshuikaixue/voicehub:main
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/voicehub
+      - JWT_SECRET=your-jwt-secret-here
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=voicehub
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+```
 
 ---
 
