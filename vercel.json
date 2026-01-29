@@ -4,9 +4,7 @@
   "buildCommand": "pnpm install --frozen-lockfile && pnpm run docs:build",
   "outputDirectory": "src/.vuepress/dist",
   "env": {
-    "NODE_ENV": "production",
-    "PNPM_HOME": "/pnpm",
-    "PATH": "/pnpm:$PATH"
+    "NODE_ENV": "production"
   },
   "routes": [
     {
