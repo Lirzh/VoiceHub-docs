@@ -7,7 +7,7 @@ export default hopeTheme({
   hostname: "docs.voicehub.lao-shui.top ",
 
   author: {
-    name: "voicehub-docs",
+    name: "LaoShui",
     url: "docs.voicehub.lao-shui.top ",
   },
 
