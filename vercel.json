@@ -1,39 +1,28 @@
 {
   "name": "voicehub-docs",
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "src/.vuepress/dist"
-      }
-    }
-  ],
+  "buildCommand": "pnpm install --frozen-lockfile && pnpm run docs:build",
+  "outputDirectory": "src/.vuepress/dist",
+  "env": {
+    "NODE_ENV": "production",
+    "PNPM_HOME": "/pnpm",
+    "PATH": "/pnpm:$PATH"
+  },
   "routes": [
-    // VuePress 静态页面路由（优先匹配已存在的文件）
     {
       "src": "/(.*\\.html|.*\\.js|.*\\.css|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.gif|.*\\.ico|.*\\.svg|.*\\.woff|.*\\.woff2|.*\\.ttf|.*\\.eot|.*\\.json)",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
-    // SPA 兜底：解决 VuePress 路由刷新 404 问题（适配文档内路由）
     {
       "src": "/[^.]+",
       "dest": "/index.html",
       "status": 200
     },
-    // 根路径直接指向 index.html
     {
       "src": "/",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production",
-    "PNPM_HOME": "/pnpm",
-    "PATH": "/pnpm:$PATH"
-  },
-  "buildCommand": "pnpm install && pnpm run docs:build"
+  ]
 }
